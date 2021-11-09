@@ -3,19 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:59:01 by yoojlee           #+#    #+#             */
-/*   Updated: 2021/11/03 17:57:35 by yoojlee          ###   ########.fr       */
+/*   Updated: 2021/11/09 18:00:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 
+typedef struct	s_info
+{
+	pthread_mutex_t	check_died;
+}				t_info;
+
+
 typedef	struct	s_philo
 {
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
+	t_info			*info;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }				t_philo;
 
 void	take_forks(t_philo *p)
@@ -83,17 +90,34 @@ t_philo		init_philo(int num)
 	return (philo);
 }
 
-int		main(int argc, char *argv[])
+int		start_pthread(t_philo *p)
 {
 	int		i;
-	pid_t	philo;
 
 	i = 0;
 	while (i < 5)
 	{
-		if (pthread_create(&philo, NULL, &routine, (void *)&common) != 0)
+		if (pthread_create(&(p[i].pthread), NULL, &routine, (void *)&(p[i]) != 0))
 			return (1);
-		if (pthread_detach(philo) != 0)
+		if (pthread_detach(p[i].pthread) != 0)
+			return (1);
+		i++;
+	}
+	pthread_mutex_lock(p->info->check_died);
+	pthread_mutex_unlock(p->info->check_died);
+}
+
+int		main(int argc, char *argv[])
+{
+	int		i;
+	pthread_t	philo;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (pthread_create(&philo, NULL, &routine, (void *)&common) != 0) //성공 시 리턴 0
+			return (1);
+		if (pthread_detach(philo) != 0) //성공 시 리턴 0
 			return (1);
 		i++;
 	}
