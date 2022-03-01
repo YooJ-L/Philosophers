@@ -6,11 +6,11 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 15:27:30 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/02/28 19:53:48 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 14:10:17 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	pick_up_fork(t_system *system, t_philo *philo)
 {
@@ -33,7 +33,10 @@ void	put_down_fork(t_system *system, t_philo *philo)
 	pthread_mutex_unlock(&system->fork[philo->right]);
 	philo->count++;
 	if (system->must_eat && philo->count >= system->must_eat)
+	{
+		printf("count_current_done++\n");
 		system->count_current_done++;
+	}
 }
 
 void	start_sleeping(t_philo *philo)

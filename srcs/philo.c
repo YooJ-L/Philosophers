@@ -6,17 +6,16 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:35:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/02/28 20:15:01 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 17:21:19 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	*monitor(void *arg)
 {
 	t_philo		*philo;
 	t_system	*system;
-	long long	current_time;
 
 	philo = (t_philo *)arg;
 	system = philo->system;
@@ -40,12 +39,11 @@ void	*start_routine(void *arg)
 {
 	t_philo		*philo;
 	t_system	*system;
-	int	i;
 
 	philo = (t_philo *)arg;
 	system = philo->system;
 	if (philo->idx % 2 == 0)
-		sleep_for_ms(100);
+		sleep_for_ms(10);
 	while (true)
 	{
 		pick_up_fork(system, philo);
@@ -73,11 +71,9 @@ bool	create_pthread(t_system *system, t_philo *philo)
 		philo[i].count = 0;
 		philo[i].alive = 1;
 		philo[i].system = system;
-		if (pthread_create(&philo->thread, NULL, start_routine, (void *)&philo[i])
-			|| pthread_detach(philo->thread))
+		if (pthread_create(&philo->thread, NULL, start_routine, (void *)&philo[i]))
 			return (false);
-		if (pthread_create(&philo->monitor, NULL, monitor, (void *)&philo[i])
-			|| pthread_detach(philo->monitor))
+		if (pthread_create(&philo->monitor, NULL, monitor, (void *)&philo[i]))
 			return (false);
 	}
 	return (true);
@@ -89,8 +85,21 @@ int	main(int argc, char *argv[])
 	t_philo	*philo;
 
 	philo = NULL;
+	printf("start\n");
 	if (!init(&system, &philo, argc, argv))
+	{
+		printf("ERROR: init\n");
 		return (-1);
+	}
 	if (!create_pthread(&system, philo))
 		return (-1);
 }
+
+	// 			printf("--------\n");
+	// printf("system->philos_total_num: %d\n", system->philos_total_num);
+	// printf("system->timetodie: %d\n", system->time_to_die);
+	// printf("system->timetoeat: %d\n", system->time_to_eat);
+	// printf("system->timetosleep: %d\n", system->time_to_sleep);
+	// printf("system->must_eat: %d\n", system->must_eat);
+	// printf("system->count_current_done: %d\n", system->count_current_done);
+	// printf("system->BEGIN_TIME: %lld\n", system->begin_time);

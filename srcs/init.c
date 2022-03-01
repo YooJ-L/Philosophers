@@ -6,11 +6,11 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/02/28 20:14:38 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/02/28 20:48:25 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 bool	init_arguments(t_system *system, int argc, char **argv)
 {
@@ -67,3 +67,12 @@ bool	init(t_system *system, t_philo **philo, int argc, char **argv)
 		return (false);
 	return (true);
 }
+
+	// printf("--------\n");
+	// printf("system->philos_total_num: %d\n", system->philos_total_num);
+	// printf("system->timetodie: %d\n", system->time_to_die);
+	// printf("system->timetoeat: %d\n", system->time_to_eat);
+	// printf("system->timetosleep: %d\n", system->time_to_sleep);
+	// printf("system->must_eat: %d\n", system->must_eat);
+	// printf("system->count_current_done: %d\n", system->count_current_done);
+	// printf("system->begin_time: %lld\n", system->begin_time);

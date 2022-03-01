@@ -6,11 +6,11 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/02/28 19:58:00 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 17:20:27 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	print_death(t_philo *philo, char *str)
 {
@@ -18,6 +18,7 @@ void	print_death(t_philo *philo, char *str)
 
 	pthread_mutex_lock(&philo->system->print);
 	time = get_current_time() - philo->system->begin_time;
+	// printf("PRINT_DEATH system->begin_time:%lld\n", philo->system->begin_time);
 	printf("%lld %d %s\n", time, philo->idx + 1, str);
 	pthread_mutex_unlock(&philo->system->print);
 }
@@ -33,6 +34,7 @@ void	print_act(t_philo *philo, char *str)
 		return ;
 	}
 	time = get_current_time() - philo->system->begin_time;
+	// printf("PRINT_ACT system->begin_time:%lld\n", philo->system->begin_time);
 	printf("%lld %d %s\n", time, philo->idx + 1, str);
 	pthread_mutex_unlock(&philo->system->print);
 }
@@ -90,7 +92,7 @@ int	ft_atoi(char *nptr, int *store)
 		return (0);
 	if (nptr[i] == '+')
 		i++;
-	if (ft_isdigit(nptr + i))
+	if (!ft_isdigit(nptr + i))
 		return (0);
 	while ('0' <= nptr[i] && nptr[i] <= '9')
 	{

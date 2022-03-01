@@ -6,49 +6,43 @@
 #    By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:06:29 by yoojlee           #+#    #+#              #
-#    Updated: 2022/02/28 18:08:08 by yoojlee          ###   ########.fr        #
+#    Updated: 2022/02/28 20:47:17 by yoojlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= philo
+CC = gcc
+CFLAGS = -Wextra -Werror -Wall
+CFLAGS += -g
 
-CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror $(INCFLAGS) #$(GFLAGS)
-THRDFLAGS	= -lpthread
-GFLAGS		= -g -fsanitize=address
+NAME = philo
 
-INCDIR		= include
-INCFLAGS	= -I$(INCDIR)
+DIR_H = ./includes/
+DIR_S = ./srcs/
+DIR_O = ./
 
-SRCDIR		= src
-SRCS		= $(patsubst %.c, $(SRCDIR)/%.c, philo.c\
-			  init.c\
-			  routine.c\
-			  utils.c)
+SRC =	philo.c	\
+		init.c	\
+		routine.c	\
+		utils.c	\
 
-OBJDIR		= build
-OBJS		= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
+SRCS = $(addprefix $(DIR_S), $(SRC))
 
-all			: $(NAME)
+OBJS = $(SRCS:.c=.o)
 
-$(NAME)		: $(OBJDIR) $(OBJS)
-	$(CC) -o $@ $(OBJS) $(CFLAGS) $(THRDFLAGS)
+all: $(NAME)
 
-$(OBJDIR)	:
-	mkdir build
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
-$(OBJDIR)/%.o	: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $^
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
 
-$(BONUS_DIR)/%.o	: $(BONUS_DIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $^
+clean:
+	rm -rf $(OBJS)
 
-clean		:
-	$(RM) -r $(OBJS)
+fclean: clean
+	rm -rf $(NAME)
 
-fclean		: clean
-	$(RM) $(NAME)
+re: fclean all
 
-re			: fclean all
-
-.PHONY		: all clean fclean re
+.PHONY: clean fclean all re
