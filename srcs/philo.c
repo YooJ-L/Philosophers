@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:35:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 17:21:19 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:34:07 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*monitor(void *arg)
 			return (NULL);
 		if (get_current_time() - philo->start_eating_time > system->time_to_die)
 		{
-			philo->alive = 0;
+			system->alive = 0;
 			print_death(philo, "died");
 			break ;
 		}
@@ -58,8 +58,11 @@ void	*start_routine(void *arg)
 bool	create_pthread(t_system *system, t_philo *philo)
 {
 	int	i;
+	int	join;
 
 	i = -1;
+	if (pthread_mutex_lock(&system->time))
+		return (false);
 	system->begin_time = get_current_time();
 	if (!system->begin_time)
 		return (false);
@@ -69,13 +72,18 @@ bool	create_pthread(t_system *system, t_philo *philo)
 		philo[i].left = i;
 		philo[i].right = (i + 1) % system->philos_total_num;
 		philo[i].count = 0;
-		philo[i].alive = 1;
 		philo[i].system = system;
-		if (pthread_create(&philo->thread, NULL, start_routine, (void *)&philo[i]))
+		if (pthread_create(&philo->thread, NULL, start_routine, (void *)&philo[i])
+			|| pthread_join(philo->thread, (void *)&join)
+			|| pthread_detach(philo->thread))
 			return (false);
-		if (pthread_create(&philo->monitor, NULL, monitor, (void *)&philo[i]))
+		if (pthread_create(&philo->monitor, NULL, monitor, (void *)&philo[i])
+			|| pthread_join(philo->monitor, (void *)&join)
+			|| pthread_detach(philo->monitor))
 			return (false);
 	}
+	if (pthread_mutex_lock(&system->time))
+		return (false);
 	return (true);
 }
 

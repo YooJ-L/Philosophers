@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 17:20:27 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:33:49 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_act(t_philo *philo, char *str)
 	long long 	time;
 
 	pthread_mutex_lock(&philo->system->print);
-	if (!philo->alive)
+	if (!philo->system->alive)
 	{
 		pthread_mutex_unlock(&philo->system->print);
 		return ;

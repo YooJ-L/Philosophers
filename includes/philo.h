@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:28:48 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/02/28 19:59:29 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:32:13 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct	s_system
 {
+	bool			alive;
 	int				philos_total_num;
 	int				time_to_die;
 	int				time_to_eat;
@@ -38,7 +39,6 @@ typedef struct	s_philo
 	int			left;
 	int			right;
 	int			count;
-	bool		alive; //출력하는 도중에 죽은 경우 확인을 위해 필요
 	pthread_t	thread;
 	pthread_t	monitor;
 	t_system	*system;
