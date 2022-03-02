@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 15:27:30 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:39 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:09:40 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	start_eating(t_system *system, t_philo *philo)
 {
 	pthread_mutex_lock(&system->fork[philo->left]);
 	print_act(philo, "has taken a fork");
-	pthread_mutex_lock(&system->fork[philo->right]); 
+	pthread_mutex_lock(&system->fork[philo->right]);
 	print_act(philo, "has taken a fork");
 	print_act(philo, "is eating");
 	philo->start_eating_time = get_current_time();

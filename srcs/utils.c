@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:42 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:14:42 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_death(t_philo *philo, char *str)
 {
-	long long 	time;
+	long long	time;
 
 	pthread_mutex_lock(&philo->system->print);
 	time = get_current_time() - philo->system->begin_time;
@@ -67,9 +67,10 @@ bool	ft_isspace(int c)
 		|| c == '\v' || c == '\f' || c == '\t');
 }
 
-bool ft_isdigit(char *s)
+bool	ft_isdigit(char *s)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (s[i])
 	{
@@ -102,5 +103,5 @@ int	ft_atoi(char *nptr, int *store)
 		i++;
 	}
 	*store = num;
-	return(1);
+	return (1);
 }

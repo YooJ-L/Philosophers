@@ -6,10 +6,9 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:29:43 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:07:02 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/philo.h"
 
@@ -23,12 +22,12 @@ void	*monitor(void *arg)
 	sleep_for_ms(system->time_to_die - 10);
 	while (system->alive)
 	{
-		if (system->must_eat &&
-			system->count_current_done == system->philos_total_num)
-			{
-				system->alive = 0;
-				return (NULL);
-			}
+		if (system->must_eat \
+				&& (system->count_current_done == system->philos_total_num))
+		{
+			system->alive = 0;
+			return (NULL);
+		}
 		if (get_current_time() - philo->start_eating_time > system->time_to_die)
 		{
 			system->alive = 0;
@@ -55,12 +54,12 @@ void	*start_routine(void *arg)
 		sleep_for_ms(100);
 	while (system->alive)
 	{
-		if (system->alive)  // --> 누군가 죽은걸 확인
-			start_eating(system, philo);  // 포크를 쥐고 있다.  // 왼손 오른손 포크 내려놓기
 		if (system->alive)
-			start_sleeping(philo);  // 포크를 들고 있지 않다.
+			start_eating(system, philo);
 		if (system->alive)
-			start_thinking(philo);  // 포크를 들고 있지 않다.
+			start_sleeping(philo);
+		if (system->alive)
+			start_thinking(philo);
 	}
 	return (NULL);
 }
@@ -77,7 +76,7 @@ void	init_a_philo(t_system *system, t_philo *philo, int i)
 
 bool	create_pthread(t_system *system, t_philo *philo)
 {
-	int	i;
+	int		i;
 	void	*join;
 
 	i = -1;
@@ -87,7 +86,8 @@ bool	create_pthread(t_system *system, t_philo *philo)
 	while (++i < system->philos_total_num)
 	{
 		init_a_philo(system, &philo[i], i);
-		if (pthread_create(&philo[i].thread, NULL, start_routine, (void *)&philo[i]))
+		if (pthread_create(&philo[i].thread, NULL, \
+				   	start_routine, (void *)&philo[i]))
 			return (false);
 		if (pthread_create(&philo[i].monitor, NULL, monitor, (void *)&philo[i]))
 			return (false);
@@ -117,7 +117,7 @@ int	main(int argc, char *argv[])
 	}
 	if (!create_pthread(&system, philo))
 	{
-		clear_all(&system,philo);
+		clear_all(&system, philo);
 		return (-1);
 	}
 	clear_all(&system, philo);
