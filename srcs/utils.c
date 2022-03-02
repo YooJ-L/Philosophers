@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:14:42 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:25:57 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_death(t_philo *philo, char *str)
 
 void	print_act(t_philo *philo, char *str)
 {
-	long long 	time;
+	long long	time;
 
 	pthread_mutex_lock(&philo->system->print);
 	if (!philo->system->alive)
@@ -59,49 +59,4 @@ long long	get_current_time(void)
 		return (-1);
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (time);
-}
-
-bool	ft_isspace(int c)
-{
-	return (c == ' ' || c == '\n' || c == '\r'
-		|| c == '\v' || c == '\f' || c == '\t');
-}
-
-bool	ft_isdigit(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if ('0' > s[i] || s[i] > '9')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-int	ft_atoi(char *nptr, int *store)
-{
-	int	i;
-	int	num;
-
-	i = 0;
-	num = 0;
-	while (ft_isspace(nptr[i]))
-		i++;
-	if (nptr[i] == '-')
-		return (0);
-	if (nptr[i] == '+')
-		i++;
-	if (!ft_isdigit(nptr + i))
-		return (0);
-	while ('0' <= nptr[i] && nptr[i] <= '9')
-	{
-		num *= 10;
-		num += nptr[i] - 48;
-		i++;
-	}
-	*store = num;
-	return (1);
 }

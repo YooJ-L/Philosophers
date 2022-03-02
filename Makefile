@@ -6,7 +6,7 @@
 #    By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:06:29 by yoojlee           #+#    #+#              #
-#    Updated: 2022/03/02 23:25:46 by yoojlee          ###   ########.fr        #
+#    Updated: 2022/03/03 00:28:58 by yoojlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC =	philo.c	\
 		routine.c	\
 		utils.c	\
 		free.c \
+		libft.c \
 
 SRCS = $(addprefix $(DIR_S), $(SRC))
 

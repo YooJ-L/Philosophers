@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:21 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:27:39 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,13 @@ void	print_death(t_philo *philo, char *str);
 void	print_act(t_philo *philo, char *str);
 long long	get_current_time(void);
 bool		sleep_for_ms(long long ms);
-int	ft_atoi(char *nptr, int *store);
 
 //free.c
 void	clear_all(t_system *system, t_philo *philo);
 void	clear_mutex(t_system *system);
 void	clear_malloc(t_system *system, t_philo *philo);
+
+//libft.c
+int	ft_atoi(char *nptr, int *store);
+bool	ft_isspace(int c);
+bool	ft_isspace(int c);
