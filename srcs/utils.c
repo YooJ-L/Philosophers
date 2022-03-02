@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 14:35:39 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 23:25:42 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	print_death(t_philo *philo, char *str)
 
 	pthread_mutex_lock(&philo->system->print);
 	time = get_current_time() - philo->system->begin_time;
-	// printf("PRINT_DEATH system->begin_time:%lld\n", philo->system->begin_time);
-	printf("%lld %d %s\n", time, philo->idx + 1, str);
+	printf("%lldms %d %s\n", time, philo->idx + 1, str);
 	pthread_mutex_unlock(&philo->system->print);
 }
 
@@ -34,8 +33,7 @@ void	print_act(t_philo *philo, char *str)
 		return ;
 	}
 	time = get_current_time() - philo->system->begin_time;
-	// printf("PRINT_ACT system->begin_time:%lld\n", philo->system->begin_time);
-	printf("%lld %d %s\n", time, philo->idx + 1, str);
+	printf("%lldms %d %s\n", time, philo->idx + 1, str);
 	pthread_mutex_unlock(&philo->system->print);
 }
 
@@ -47,7 +45,7 @@ bool	sleep_for_ms(long long ms)
 	if (!start_time)
 		return (false);
 	while (get_current_time() - start_time < ms)
-		usleep(10);
+		usleep(100);
 	return (true);
 }
 
