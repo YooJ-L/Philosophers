@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:28:48 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 19:32:13 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 21:54:34 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct	s_system
 	int				must_eat;
 	int				count_current_done;
 	pthread_mutex_t	print;
-	pthread_mutex_t	time; //?
 	pthread_mutex_t	*fork;
 	long long		begin_time;
 }				t_system;
@@ -47,18 +46,19 @@ typedef struct	s_philo
 
 // init.c
 bool	init_arguments(t_system *system, int argc, char **argv);
-bool	init_philo_and_forks(t_system *system, t_philo **philo);
+bool	init_philo_and_forks(t_system *system, t_philo *philo);
 bool	init_mutex(t_system *system);
-bool	init(t_system *system, t_philo **philo, int argc, char **argv);
+bool	init(t_system *system, t_philo *philo, int argc, char **argv);
 
 //philo.c
 void	*monitor(void *arg);
 void	*start_routine(void *arg);
+void	init_a_philo(t_system *system, t_philo *philo, int i);
 bool	create_pthread(t_system *system, t_philo *philo);
 
 //routine.c
 void	pick_up_fork(t_system *system, t_philo *philo);
-void	start_eating(t_philo *philo);
+void	start_eating(t_system *system, t_philo *philo);
 void	put_down_fork(t_system *system, t_philo *philo);
 void	start_sleeping(t_philo *philo);
 void	start_thinking(t_philo *philo);
@@ -69,3 +69,8 @@ void	print_act(t_philo *philo, char *str);
 long long	get_current_time(void);
 bool		sleep_for_ms(long long ms);
 int	ft_atoi(char *nptr, int *store);
+
+//free.c
+void	clear_all(t_system *system, t_philo *philo);
+void	clear_mutex(t_system *system);
+void	clear_malloc(t_system *system, t_philo *philo);

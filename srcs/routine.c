@@ -6,35 +6,26 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 15:27:30 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 21:16:31 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 20:27:50 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	pick_up_fork(t_system *system, t_philo *philo)
+void	start_eating(t_system *system, t_philo *philo)
 {
 	pthread_mutex_lock(&system->fork[philo->left]);
 	print_act(philo, "has taken a fork");
-	pthread_mutex_lock(&system->fork[philo->right]);
+	pthread_mutex_lock(&system->fork[philo->right]); 
 	print_act(philo, "has taken a fork");
-}
-
-void	start_eating(t_philo *philo)
-{
 	print_act(philo, "is eating");
 	philo->start_eating_time = get_current_time();
 	sleep_for_ms(philo->system->time_to_eat);
-}
-
-void	put_down_fork(t_system *system, t_philo *philo)
-{
 	pthread_mutex_unlock(&system->fork[philo->left]);
 	pthread_mutex_unlock(&system->fork[philo->right]);
 	philo->count++;
-	if (system->must_eat && philo->count >= system->must_eat)
+	if (system->must_eat && philo->count == system->must_eat)
 	{
-		printf("count_current_done++\n");
 		system->count_current_done++;
 	}
 }
