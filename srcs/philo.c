@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:35:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 19:34:07 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:36:48 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void	*monitor(void *arg)
 	philo = (t_philo *)arg;
 	system = philo->system;
 	sleep_for_ms(system->time_to_die - 10);
-	while (true)
+	while (system->alive)
 	{
 		if (system->must_eat &&
 			system->count_current_done == system->philos_total_num)
-			return (NULL);
+			{
+				system->alive = 0;
+				return (NULL);
+			}
 		if (get_current_time() - philo->start_eating_time > system->time_to_die)
 		{
 			system->alive = 0;
@@ -46,11 +49,16 @@ void	*start_routine(void *arg)
 		sleep_for_ms(10);
 	while (true)
 	{
-		pick_up_fork(system, philo);
-		start_eating(philo);
-		put_down_fork(system, philo);
-		start_sleeping(philo);
-		start_thinking(philo);
+		if (philo->system->alive)
+			pick_up_fork(system, philo);  // 포크를 쥔다  ( 왼손 / 오른손 )
+		if (philo->system->alive)  // --> 누군가 죽은걸 확인
+			start_eating(philo);  // 포크를 쥐고 있다.  // 왼손 오른손 포크 내려놓기
+		if (philo->system->alive)
+			put_down_fork(system, philo);  // 포크를 내려 놓는다. // 왼손 오른손 포크 내려놓기
+		if (philo->system->alive)
+			start_sleeping(philo);  // 포크를 들고 있지 않다.
+		if (philo->system->alive)
+			start_thinking(philo);  // 포크를 들고 있지 않다.
 	}
 	return (NULL);
 }
@@ -58,32 +66,29 @@ void	*start_routine(void *arg)
 bool	create_pthread(t_system *system, t_philo *philo)
 {
 	int	i;
-	int	join;
+	void	*join;
 
 	i = -1;
-	if (pthread_mutex_lock(&system->time))
-		return (false);
 	system->begin_time = get_current_time();
 	if (!system->begin_time)
 		return (false);
 	while (++i < system->philos_total_num)
-	{
+	{	
 		philo[i].idx = i;
 		philo[i].left = i;
 		philo[i].right = (i + 1) % system->philos_total_num;
 		philo[i].count = 0;
 		philo[i].system = system;
-		if (pthread_create(&philo->thread, NULL, start_routine, (void *)&philo[i])
-			|| pthread_join(philo->thread, (void *)&join)
-			|| pthread_detach(philo->thread))
+		if (pthread_create(&philo[i].thread, NULL, start_routine, (void *)&philo[i]))
 			return (false);
-		if (pthread_create(&philo->monitor, NULL, monitor, (void *)&philo[i])
-			|| pthread_join(philo->monitor, (void *)&join)
-			|| pthread_detach(philo->monitor))
+		if (pthread_create(&philo[i].monitor, NULL, monitor, (void *)&philo[i]))
 			return (false);
 	}
-	if (pthread_mutex_lock(&system->time))
-		return (false);
+	i = -1;
+	while (++i < system->philos_total_num)
+	{
+		pthread_join(philo[i].thread, (void *)&join);
+	}
 	return (true);
 }
 

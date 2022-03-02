@@ -6,13 +6,13 @@
 #    By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:06:29 by yoojlee           #+#    #+#              #
-#    Updated: 2022/02/28 20:47:17 by yoojlee          ###   ########.fr        #
+#    Updated: 2022/03/01 20:32:47 by yoojlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wextra -Werror -Wall
-CFLAGS += -g
+CFLAGS += -g -fsanitize=address
 
 NAME = philo
 

@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 19:33:49 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:35:39 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ bool	sleep_for_ms(long long ms)
 long long	get_current_time(void)
 {
 	struct timeval	tv;
+	long long		time;
 
+	time = 0;
 	if (gettimeofday(&tv, NULL) == -1)
 		return (-1);
-	return ((long long)(tv.tv_sec * 1000 + tv.tv_usec / 1000));
+	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (time);
 }
 
 bool	ft_isspace(int c)

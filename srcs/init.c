@@ -6,12 +6,11 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/01 19:32:38 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:34:28 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 bool	init_arguments(t_system *system, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
