@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 16:35:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 22:01:18 by yoojlee          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../includes/philo.h"
 
@@ -51,7 +40,7 @@ void	*start_routine(void *arg)
 		return (NULL);
 	}
 	if (philo->idx % 2 == 1)
-		sleep_for_ms(10);
+		sleep_for_ms(100);
 	while (system->alive)
 	{
 		if (system->alive)  // --> 누군가 죽은걸 확인
@@ -84,8 +73,7 @@ bool	create_pthread(t_system *system, t_philo *philo)
 	if (!system->begin_time)
 		return (false);
 	while (++i < system->philos_total_num)
-	{	
-		memset((void *)philo, 0, sizeof(t_philo));
+	{
 		init_a_philo(system, &philo[i], i);
 		if (pthread_create(&philo[i].thread, NULL, start_routine, (void *)&philo[i]))
 			return (false);
@@ -110,7 +98,7 @@ int	main(int argc, char *argv[])
 
 	philo = NULL;
 	printf("start\n");
-	if (!init(&system, philo, argc, argv))
+	if (!init(&system, &philo, argc, argv))
 	{
 		printf("ERROR: init\n");
 		return (-1);

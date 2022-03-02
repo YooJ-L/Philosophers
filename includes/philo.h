@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 16:28:48 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 21:54:34 by yoojlee          ###   ########.fr       */
+/*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
+/*   Updated: 2022/03/02 22:32:48 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 # include <sys/time.h> //gettimeofday
 # include <pthread.h>
@@ -46,9 +47,9 @@ typedef struct	s_philo
 
 // init.c
 bool	init_arguments(t_system *system, int argc, char **argv);
-bool	init_philo_and_forks(t_system *system, t_philo *philo);
+bool	init_philo_and_forks(t_system *system, t_philo **philo);
 bool	init_mutex(t_system *system);
-bool	init(t_system *system, t_philo *philo, int argc, char **argv);
+bool	init(t_system *system, t_philo **philo, int argc, char **argv);
 
 //philo.c
 void	*monitor(void *arg);

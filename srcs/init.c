@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 20:54:25 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:33:25 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ bool	init_arguments(t_system *system, int argc, char **argv)
 	return (true);
 }
 
-bool	init_philo_and_forks(t_system *system, t_philo *philo)
+bool	init_philo_and_forks(t_system *system, t_philo **philo)
 {
-	philo = (t_philo *)malloc(sizeof(t_philo) * system->philos_total_num);
-	if (!philo)
+	*philo = (t_philo *)malloc(sizeof(t_philo) * system->philos_total_num);
+	if (!*philo)
 		return (false);
 	system->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 												* system->philos_total_num);
@@ -54,7 +54,7 @@ bool	init_mutex(t_system *system)
 	return (true);
 }
 
-bool	init(t_system *system, t_philo *philo, int argc, char **argv)
+bool	init(t_system *system, t_philo **philo, int argc, char **argv)
 {	
 	if (argc < 5 || argc > 6)
 		return (false);
@@ -65,12 +65,12 @@ bool	init(t_system *system, t_philo *philo, int argc, char **argv)
 	}
 	if (!init_philo_and_forks(system, philo))
 	{
-		clear_malloc(system, philo);
+		clear_malloc(system, *philo);
 		return (false);
 	}
 	if (!init_mutex(system))
 	{
-		clear_all(system, philo);
+		clear_all(system, *philo);
 		return (false);
 	}
 	return (true);

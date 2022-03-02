@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 20:56:17 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 20:56:54 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:34:35 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	clear_malloc(t_system *system, t_philo *philo)
 	i = -1;
 	free(philo);
 	free(system->fork);
-	free(system);
 }
