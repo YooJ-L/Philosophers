@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:35 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 23:29:43 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,3 @@ int	main(int argc, char *argv[])
 	clear_all(&system, philo);
 	return (0);
 }
-
-	// 			printf("--------\n");
-	// printf("system->philos_total_num: %d\n", system->philos_total_num);
-	// printf("system->timetodie: %d\n", system->time_to_die);
-	// printf("system->timetoeat: %d\n", system->time_to_eat);
-	// printf("system->timetosleep: %d\n", system->time_to_sleep);
-	// printf("system->must_eat: %d\n", system->must_eat);
-	// printf("system->count_current_done: %d\n", system->count_current_done);
-	// printf("system->BEGIN_TIME: %lld\n", system->begin_time);

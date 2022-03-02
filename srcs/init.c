@@ -6,14 +6,13 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:25:28 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/02 23:35:16 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 bool	init_arguments(t_system *system, int argc, char **argv)
 {
-
 	memset((void *)system, 0, sizeof(t_system));
 	system->alive = 1;
 	if (!ft_atoi(argv[1], &system->philos_total_num)
@@ -31,8 +30,8 @@ bool	init_philo_and_forks(t_system *system, t_philo **philo)
 	*philo = (t_philo *)malloc(sizeof(t_philo) * system->philos_total_num);
 	if (!*philo)
 		return (false);
-	system->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-												* system->philos_total_num);
+	system->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+			* system->philos_total_num);
 	if (!system->fork)
 		return (false);
 	return (true);
@@ -45,8 +44,8 @@ bool	init_mutex(t_system *system)
 	i = 0;
 	while (i < system->philos_total_num)
 	{
-		if (pthread_mutex_init(&system->fork[i], NULL)) //fork mutex init
-			return (false); //성공하면 0반환
+		if (pthread_mutex_init(&system->fork[i], NULL))
+			return (false);
 		i++;
 	}
 	if (pthread_mutex_init(&system->print, NULL))
