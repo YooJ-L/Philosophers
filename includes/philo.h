@@ -6,10 +6,12 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:27:39 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:35:25 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <sys/time.h> //gettimeofday
 # include <pthread.h>
@@ -19,7 +21,7 @@
 # include <stdio.h> //printf
 # include <string.h> //memset
 
-typedef struct	s_system
+typedef struct s_system
 {
 	bool			alive;
 	int				philos_total_num;
@@ -33,7 +35,7 @@ typedef struct	s_system
 	long long		begin_time;
 }				t_system;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int			idx;
 	int			left;
@@ -65,8 +67,8 @@ void	start_sleeping(t_philo *philo);
 void	start_thinking(t_philo *philo);
 
 //utils.c
-void	print_death(t_philo *philo, char *str);
-void	print_act(t_philo *philo, char *str);
+void		print_death(t_philo *philo, char *str);
+void		print_act(t_philo *philo, char *str);
 long long	get_current_time(void);
 bool		sleep_for_ms(long long ms);
 
@@ -76,6 +78,7 @@ void	clear_mutex(t_system *system);
 void	clear_malloc(t_system *system, t_philo *philo);
 
 //libft.c
-int	ft_atoi(char *nptr, int *store);
+int		ft_atoi(char *nptr, int *store);
 bool	ft_isspace(int c);
 bool	ft_isspace(int c);
+#endif
