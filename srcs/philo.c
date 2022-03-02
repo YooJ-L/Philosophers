@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:07:02 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:42:30 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	main(int argc, char *argv[])
 	t_philo		*philo;
 
 	philo = NULL;
-	printf("start\n");
 	if (!init(&system, &philo, argc, argv))
 	{
 		printf("ERROR: init\n");

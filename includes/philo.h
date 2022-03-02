@@ -6,7 +6,8 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:35:25 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:41:45 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 00:38:55 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +49,23 @@ typedef struct s_philo
 }				t_philo;
 
 // init.c
-bool	init_arguments(t_system *system, int argc, char **argv);
-bool	init_philo_and_forks(t_system *system, t_philo **philo);
-bool	init_mutex(t_system *system);
-bool	init(t_system *system, t_philo **philo, int argc, char **argv);
+bool		init_arguments(t_system *system, int argc, char **argv);
+bool		init_philo_and_forks(t_system *system, t_philo **philo);
+bool		init_mutex(t_system *system);
+bool		init(t_system *system, t_philo **philo, int argc, char **argv);
 
 //philo.c
-void	*monitor(void *arg);
-void	*start_routine(void *arg);
-void	init_a_philo(t_system *system, t_philo *philo, int i);
-bool	create_pthread(t_system *system, t_philo *philo);
+void		*monitor(void *arg);
+void		*start_routine(void *arg);
+void		init_a_philo(t_system *system, t_philo *philo, int i);
+bool		create_pthread(t_system *system, t_philo *philo);
 
 //routine.c
-void	pick_up_fork(t_system *system, t_philo *philo);
-void	start_eating(t_system *system, t_philo *philo);
-void	put_down_fork(t_system *system, t_philo *philo);
-void	start_sleeping(t_philo *philo);
-void	start_thinking(t_philo *philo);
+void		pick_up_fork(t_system *system, t_philo *philo);
+void		start_eating(t_system *system, t_philo *philo);
+void		put_down_fork(t_system *system, t_philo *philo);
+void		start_sleeping(t_philo *philo);
+void		start_thinking(t_philo *philo);
 
 //utils.c
 void		print_death(t_philo *philo, char *str);
@@ -73,12 +74,13 @@ long long	get_current_time(void);
 bool		sleep_for_ms(long long ms);
 
 //free.c
-void	clear_all(t_system *system, t_philo *philo);
-void	clear_mutex(t_system *system);
-void	clear_malloc(t_system *system, t_philo *philo);
+void		clear_all(t_system *system, t_philo *philo);
+void		clear_mutex(t_system *system);
+void		clear_malloc(t_system *system, t_philo *philo);
 
 //libft.c
-int		ft_atoi(char *nptr, int *store);
-bool	ft_isspace(int c);
-bool	ft_isspace(int c);
+int			ft_atoi(char *nptr, int *store);
+bool		ft_isspace(int c);
+bool		ft_isspace(int c);
+
 #endif
