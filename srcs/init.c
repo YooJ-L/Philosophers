@@ -6,14 +6,16 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:35:16 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:12:23 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
 bool	init_arguments(t_system *system, int argc, char **argv)
 {
 	memset((void *)system, 0, sizeof(t_system));
+	system->must_eat = -1;
 	system->alive = 1;
 	if (!ft_atoi(argv[1], &system->philos_total_num)
 		|| !ft_atoi(argv[2], &system->time_to_die)
@@ -59,7 +61,6 @@ bool	init(t_system *system, t_philo **philo, int argc, char **argv)
 		return (false);
 	if (!init_arguments(system, argc, argv))
 	{
-		free(system);
 		return (false);
 	}
 	if (!init_philo_and_forks(system, philo))

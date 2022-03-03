@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 00:24:17 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:24:59 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 08:13:48 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	ft_atoi(char *nptr, int *store)
 
 	i = 0;
 	num = 0;
+	if (!ft_isdigit(nptr))
+		return (0);
 	while (ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] == '-')
 		return (0);
 	if (nptr[i] == '+')
 		i++;
-	if (!ft_isdigit(nptr + i))
-		return (0);
 	while ('0' <= nptr[i] && nptr[i] <= '9')
 	{
 		num *= 10;

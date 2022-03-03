@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:23:04 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:25:57 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 15:46:23 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@ void	print_death(t_philo *philo, char *str)
 	long long	time;
 
 	pthread_mutex_lock(&philo->system->print);
+	if (philo->system->print_death)
+	{
+		pthread_mutex_unlock(&philo->system->print);
+		return ;
+	}
 	time = get_current_time() - philo->system->begin_time;
 	printf("%lldms %d %s\n", time, philo->idx + 1, str);
+	philo->system->print_death = 1;
 	pthread_mutex_unlock(&philo->system->print);
 }
 
@@ -59,4 +65,14 @@ long long	get_current_time(void)
 		return (-1);
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (time);
+}
+
+bool	check_must_eat(t_system *system)
+{
+	if (system->must_eat == 0)
+	{
+		system->alive = 0;
+		return (false);
+	}
+	return (true);
 }

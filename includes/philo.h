@@ -6,10 +6,10 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:41:45 by yoojlee          ###   ########.fr       */
-/*   Updated: 2022/03/03 00:38:55 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 15:46:03 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -25,6 +25,7 @@
 typedef struct s_system
 {
 	bool			alive;
+	bool			print_death;
 	int				philos_total_num;
 	int				time_to_die;
 	int				time_to_eat;
@@ -72,6 +73,7 @@ void		print_death(t_philo *philo, char *str);
 void		print_act(t_philo *philo, char *str);
 long long	get_current_time(void);
 bool		sleep_for_ms(long long ms);
+bool		check_must_eat(t_system *system);
 
 //free.c
 void		clear_all(t_system *system, t_philo *philo);

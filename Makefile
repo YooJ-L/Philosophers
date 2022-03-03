@@ -6,7 +6,7 @@
 #    By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:06:29 by yoojlee           #+#    #+#              #
-#    Updated: 2022/03/03 00:28:58 by yoojlee          ###   ########.fr        #
+#    Updated: 2022/03/03 14:59:00 by yoojlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ DIR_H = ./includes/
 DIR_S = ./srcs/
 DIR_O = ./
 
-SRC =	philo.c	\
+SRC =	main.c \
+		philo.c	\
 		init.c	\
 		routine.c	\
 		utils.c	\

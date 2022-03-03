@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 00:42:30 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 15:17:13 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*monitor(void *arg)
 	sleep_for_ms(system->time_to_die - 10);
 	while (system->alive)
 	{
-		if (system->must_eat \
+		if (system->must_eat != -1\
 				&& (system->count_current_done == system->philos_total_num))
 		{
 			system->alive = 0;
@@ -45,13 +45,15 @@ void	*start_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	system = philo->system;
+	if (!check_must_eat(system))
+		return (NULL);
 	if (system->philos_total_num == 1)
 	{
 		print_act(philo, "has taken a fork");
 		return (NULL);
 	}
 	if (philo->idx % 2 == 1)
-		sleep_for_ms(100);
+		sleep_for_ms(system->time_to_eat / 2);
 	while (system->alive)
 	{
 		if (system->alive)
@@ -101,24 +103,4 @@ bool	create_pthread(t_system *system, t_philo *philo)
 			return (false);
 	}
 	return (true);
-}
-
-int	main(int argc, char *argv[])
-{
-	t_system	system;
-	t_philo		*philo;
-
-	philo = NULL;
-	if (!init(&system, &philo, argc, argv))
-	{
-		printf("ERROR: init\n");
-		return (-1);
-	}
-	if (!create_pthread(&system, philo))
-	{
-		clear_all(&system, philo);
-		return (-1);
-	}
-	clear_all(&system, philo);
-	return (0);
 }
