@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 15:17:13 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:18:20 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*monitor(void *arg)
 	sleep_for_ms(system->time_to_die - 10);
 	while (system->alive)
 	{
-		if (system->must_eat != -1\
+		if (system->must_eat != -1 \
 				&& (system->count_current_done == system->philos_total_num))
 		{
 			system->alive = 0;
