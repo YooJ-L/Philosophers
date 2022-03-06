@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 20:55:51 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 21:17:26 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ bool	init_mutex(t_system *system)
 		i++;
 	}
 	if (pthread_mutex_init(&system->print, NULL))
-		return (false);
-	if (pthread_mutex_init(&system->monitor, NULL))
 		return (false);
 	if (pthread_mutex_init(&system->check, NULL))
 		return (false);

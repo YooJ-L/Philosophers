@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 20:56:17 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/02 23:33:36 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 21:18:02 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	clear_mutex(t_system *system)
 	int	i;
 
 	pthread_mutex_destroy(&system->print);
+	pthread_mutex_destroy(&system->check);
 	i = -1;
 	while (++i < system->philos_total_num)
 	{

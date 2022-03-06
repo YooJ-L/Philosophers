@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 20:57:14 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 21:16:48 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	monitor_philos(t_system *system, t_philo *philo)
 		i = -1;
 		while (++i < system->philos_total_num && system->alive)
 		{
-			pthread_mutex_lock(&system->monitor);
 			if (system->must_eat != -1 \
 					&& system->count_current_done == system->philos_total_num)
 			{
@@ -36,7 +35,6 @@ void	monitor_philos(t_system *system, t_philo *philo)
 				print_death(&philo[i], "died");
 				return ;
 			}
-			pthread_mutex_unlock(&system->monitor);
 		}
 	}
 }
