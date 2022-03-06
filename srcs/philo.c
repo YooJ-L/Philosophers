@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 16:18:20 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:46:58 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,34 @@ void	init_a_philo(t_system *system, t_philo *philo, int i)
 	philo->system = system;
 }
 
+void	monitor_philos(t_system *system, t_philo **philo)
+{
+	int	i;
+
+	sleep_for_ms(system->time_to_die - 10);
+	while (system->alive)
+	{
+		i = 0;
+		while (++i < system->philos_total_num && system->alive)
+		{
+			pthread_mutex_lock(&system->monitor);
+			if (system->must_eat != -1 \
+					&& system->count_current_done == system->philos_total_num)
+			{
+				system->alive = 0;
+				return ;
+			}
+			else if (get_current_time() - philo[i]->start_eating_time > system->time_to_die)
+			{
+				system->alive = 0;
+				print_death(philo[i], "died");
+				return ;
+			}
+			pthread_mutex_unlock(&system->monitor);
+		}
+	}
+}
+
 bool	create_pthread(t_system *system, t_philo *philo)
 {
 	int		i;
@@ -91,9 +119,10 @@ bool	create_pthread(t_system *system, t_philo *philo)
 		if (pthread_create(&philo[i].thread, NULL, \
 				   	start_routine, (void *)&philo[i]))
 			return (false);
-		if (pthread_create(&philo[i].monitor, NULL, monitor, (void *)&philo[i]))
-			return (false);
+		// if (pthread_create(&philo[i].monitor, NULL, monitor, (void *)&philo[i]))
+		// 	return (false);
 	}
+	monitor_philos(system, &philo);
 	i = -1;
 	while (++i < system->philos_total_num)
 	{

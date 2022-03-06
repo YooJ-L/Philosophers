@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:18:40 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 16:12:23 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/05 22:33:31 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 bool	init_arguments(t_system *system, int argc, char **argv)
 {
-	memset((void *)system, 0, sizeof(t_system));
+	// memset((void *)system, 0, sizeof(t_system));
 	system->must_eat = -1;
 	system->alive = 1;
+	system->print_death = 0;
+	system->count_current_done = 0;
+	system->begin_time = 0;
 	if (!ft_atoi(argv[1], &system->philos_total_num)
 		|| !ft_atoi(argv[2], &system->time_to_die)
 		|| !ft_atoi(argv[3], &system->time_to_eat)
@@ -51,6 +54,8 @@ bool	init_mutex(t_system *system)
 		i++;
 	}
 	if (pthread_mutex_init(&system->print, NULL))
+		return (false);
+	if (pthread_mutex_init(&system->monitor, NULL))
 		return (false);
 	return (true);
 }
