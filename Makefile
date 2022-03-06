@@ -6,46 +6,55 @@
 #    By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:06:29 by yoojlee           #+#    #+#              #
-#    Updated: 2022/03/03 14:59:00 by yoojlee          ###   ########.fr        #
+#    Updated: 2022/03/06 20:08:08 by yoojlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = philo
+BONUS_NAME = philo_bonus
+
 CC = gcc
-CFLAGS = -Wextra -Werror -Wall
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g -fsanitize=address
 
-NAME = philo
-
-DIR_H = ./includes/
-DIR_S = ./srcs/
-DIR_O = ./
-
-SRC =	main.c \
+SRCS = $(addprefix ./srcs/, \
+		main.c \
 		philo.c	\
 		init.c	\
 		routine.c	\
 		utils.c	\
 		free.c \
 		libft.c \
+		)
 
-SRCS = $(addprefix $(DIR_S), $(SRC))
+BONUS_SRCS = $(addprefix ./srcs_bonus/, \
+		main_bonus.c \
+		philo_bonus.c	\
+		init_bonus.c	\
+		routine_bonus.c	\
+		utils_bonus.c	\
+		free_bonus.c \
+		libft_bonus.c \
+		)
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFLAGS) -o $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
+$(BONUS_NAME) : $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFLAGS) -o $(BONUS_NAME)
 
-clean:
-	rm -rf $(OBJS)
+all : $(NAME)
 
-fclean: clean
-	rm -rf $(NAME)
+clean :
+	rm -rf $(OBJS) $(BONUS_OBJS)
 
-re: fclean all
+fclean : clean
+	rm -rf $(NAME) $(BONUS_NAME)
 
-.PHONY: clean fclean all re
+bonus : all $(BONUS_NAME)
+
+re : fclean all
