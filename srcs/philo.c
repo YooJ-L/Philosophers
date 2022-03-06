@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 17:13:09 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 17:15:22 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ bool	create_pthread(t_system *system, t_philo *philo)
 	while (++i < system->philos_total_num)
 	{
 		if (pthread_join(philo[i].thread, (void *)&join) != 0)
-			return (false);
-		if (pthread_join(philo[i].monitor, (void *)&join) != 0)
 			return (false);
 	}
 	return (true);
