@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 20:56:10 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 20:57:14 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	init_a_philo(t_system *system, t_philo *philo, int i)
 	philo->start_eating_time = get_current_time();
 	philo->system = system;
 }
-
 
 bool	create_pthread(t_system *system, t_philo *philo)
 {
