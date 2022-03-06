@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 17:15:22 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 20:56:10 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	monitor_philos(t_system *system, t_philo *philo)
 			if (system->must_eat != -1 \
 					&& system->count_current_done == system->philos_total_num)
 			{
-				printf("musteat\n");
 				system->alive = 0;
 				return ;
 			}
-			if (get_current_time() - philo[i].start_eating_time > system->time_to_die)
+			if (get_current_time() - philo[i].start_eating_time \
+				 > system->time_to_die)
 			{
 				system->alive = 0;
 				print_death(&philo[i], "died");
