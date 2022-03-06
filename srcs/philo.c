@@ -6,36 +6,39 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 23:25:34 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 16:28:18 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 17:13:09 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	*monitor(void *arg)
+void	monitor_philos(t_system *system, t_philo *philo)
 {
-	t_philo		*philo;
-	t_system	*system;
+	int	i;
 
-	philo = (t_philo *)arg;
-	system = philo->system;
 	sleep_for_ms(system->time_to_die - 10);
 	while (system->alive)
 	{
-		if (system->must_eat != -1 \
-				&& (system->count_current_done == system->philos_total_num))
+		i = -1;
+		while (++i < system->philos_total_num && system->alive)
 		{
-			system->alive = 0;
-			return (NULL);
-		}
-		if (get_current_time() - philo->start_eating_time > system->time_to_die)
-		{
-			system->alive = 0;
-			print_death(philo, "died");
-			break ;
+			pthread_mutex_lock(&system->monitor);
+			if (system->must_eat != -1 \
+					&& system->count_current_done == system->philos_total_num)
+			{
+				printf("musteat\n");
+				system->alive = 0;
+				return ;
+			}
+			if (get_current_time() - philo[i].start_eating_time > system->time_to_die)
+			{
+				system->alive = 0;
+				print_death(&philo[i], "died");
+				return ;
+			}
+			pthread_mutex_unlock(&system->monitor);
 		}
 	}
-	return (NULL);
 }
 
 void	*start_routine(void *arg)
@@ -76,36 +79,6 @@ void	init_a_philo(t_system *system, t_philo *philo, int i)
 	philo->system = system;
 }
 
-void	monitor_philos(t_system *system, t_philo **philo)
-{
-	int	i;
-
-	sleep_for_ms(system->time_to_die - 10);
-	while (system->alive)
-	{
-		i = -1;
-		while (++i < system->philos_total_num && system->alive)
-		{
-			pthread_mutex_lock(&system->monitor);
-			if (system->must_eat != -1 \
-					&& system->count_current_done == system->philos_total_num)
-			{
-				printf("musteat\n");
-				system->alive = 0;
-				return ;
-			}
-			printf("i:%d\n", i);
-			if (get_current_time() - philo[i]->start_eating_time > system->time_to_die)
-			{
-				printf("DIE\n");
-				system->alive = 0;
-				print_death(philo[i], "died");
-				return ;
-			}
-			pthread_mutex_unlock(&system->monitor);
-		}
-	}
-}
 
 bool	create_pthread(t_system *system, t_philo *philo)
 {
@@ -122,10 +95,8 @@ bool	create_pthread(t_system *system, t_philo *philo)
 		if (pthread_create(&philo[i].thread, NULL, \
 				   	start_routine, (void *)&philo[i]))
 			return (false);
-		// if (pthread_create(&philo[i].monitor, NULL, monitor, (void *)&philo[i]))
-		// 	return (false);
 	}
-	monitor_philos(system, &philo);
+	monitor_philos(system, philo);
 	i = -1;
 	while (++i < system->philos_total_num)
 	{

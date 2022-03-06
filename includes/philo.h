@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/06 16:39:59 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 17:13:58 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool		init_mutex(t_system *system);
 bool		init(t_system *system, t_philo **philo, int argc, char **argv);
 
 //philo.c
-void		*monitor(void *arg);
+void		monitor_philos(t_system *system, t_philo *philo);
 void		*start_routine(void *arg);
 void		init_a_philo(t_system *system, t_philo *philo, int i);
 bool		create_pthread(t_system *system, t_philo *philo);
