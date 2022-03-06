@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 15:27:30 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/03 08:26:53 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 16:40:46 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	start_eating(t_system *system, t_philo *philo)
 	philo->count++;
 	if (system->must_eat != -1 && philo->count == system->must_eat)
 	{
+		pthread_mutex_lock(&system->check);
 		system->count_current_done++;
+		pthread_mutex_unlock(&system->check);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoojlee <yoojlee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 22:32:35 by yoojlee           #+#    #+#             */
-/*   Updated: 2022/03/05 21:44:51 by yoojlee          ###   ########.fr       */
+/*   Updated: 2022/03/06 16:39:59 by yoojlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_system
 	int				count_current_done;
 	pthread_mutex_t	print;
 	pthread_mutex_t	monitor;
+	pthread_mutex_t	check;
 	pthread_mutex_t	*fork;
 	long long		begin_time;
 }				t_system;
